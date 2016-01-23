@@ -1,0 +1,1 @@
+/home/rami_alghanmi/scale14x/ansible/contrib/inventory/openstack.py

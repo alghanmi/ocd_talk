@@ -1,0 +1,35 @@
+---
+- name: create tomcat group
+  group: name='{{ tomcat_group }}'
+         state=present
+
+- name: create tomcat user
+  user:
+    name: '{{ tomcat_user }}'
+    group: '{{ tomcat_group }}'
+    comment: 'Tomcat System User'
+    state: present
+    system: yes
+
+- name: add tomcat yum repository
+  copy: src=files/tomcat.repo
+        dest=/etc/yum.repos.d/tomcat.repo
+        owner=root
+        group=root
+        mode=0644
+
+- name: deploy tomcat systemd service file
+  template: src=files/tomcat.service.j2
+            dest=/etc/systemd/system/tomcat.service
+  notify:
+    - reload systemd
+
+- name: install jdk and tomcat 
+  yum: name='{{ item }}' state=latest
+  with_items:
+    - java-1.8.0-openjdk
+    - tomcat8
+  notify:
+    - restart tomcat
+
+

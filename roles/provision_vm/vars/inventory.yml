@@ -1,0 +1,3 @@
+---
+vm_active: '{{ groups[spec.metadata_group] | length if groups[spec.metadata_group] is defined else 0 }}'
+vm_provision: '{{ spec.inventory|int - vm_active|int if spec.inventory|int - vm_active|int > 0 else -1 }}'

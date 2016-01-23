@@ -1,0 +1,38 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+
+  pre_tasks:
+    - include_vars: group_vars/project.yml 
+
+  tasks:
+      - name: upload ssh keypair
+        os_keypair:
+          cloud: '{{ cloud_project.cloud_name }}'
+          state: present
+          name: '{{ project_user.ssh_key_name }}'
+          public_key_file: '{{ project_user.ssh_key }}'
+
+      - name: create networks
+        os_network:
+          cloud: '{{ cloud_project.cloud_name }}'
+          state: present
+          name: '{{ item.net_name }}'
+          external: false
+          shared: false
+        with_items: '{{ project_networks }}'
+
+      - name: create subnets
+        os_subnet:
+          cloud: '{{ cloud_project.cloud_name }}'
+          state: present
+          name: '{{ item.net_subnet }}'
+          cidr: '{{ item.net_cidr }}'
+          network_name: '{{ item.net_name }}'
+          enable_dhcp: true
+        with_items: '{{ project_networks }}'
+
+      - name: obtain subnet details
+        os_subnets_facts:
+          cloud: '{{ cloud_project.cloud_name }}'

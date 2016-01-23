@@ -1,0 +1,2 @@
+---
+- include: ssh_config.yml

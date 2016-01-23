@@ -1,0 +1,33 @@
+---
+cloud_project:
+  cloud_name: matrix
+
+project_user:
+  username: rami_alghanmi
+  ssh_key_name: rami_alghanmi_key
+  ssh_key: files/scaledemo_id_rsa.pub
+
+project_networks:
+  - net_name: jump_net
+    net_subnet: jump_net_subnet
+    net_cidr: 192.168.60.0/24
+
+  - net_name: resource_net
+    net_subnet: resource_net_subnet
+    net_cidr: 192.168.50.0/24
+
+  - net_name: app_net
+    net_subnet: app_net_subnet
+    net_cidr: 192.168.10.0/24
+
+  - net_name: db_net
+    net_subnet: db_net_subnet
+    net_cidr: 192.168.20.0/24
+
+project_routers:
+  - rt_name: default_router
+  - rt_ifaces:
+    - jump_net
+    - resource_net
+    - app_net
+    - db_net

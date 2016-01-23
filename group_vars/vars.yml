@@ -1,0 +1,6 @@
+---
+vm_group: proxy
+vm_active: '{{ groups[vm_group] | length if groups[vm_group] is defined else 0 }}'
+vm_wanted: 2
+vm_provision: '{{ vm_wanted|int - vm_active|int if vm_wanted|int - vm_active|int > 0 else 0 }}'
+

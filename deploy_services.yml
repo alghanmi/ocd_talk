@@ -1,0 +1,14 @@
+---
+- hosts: tomcat
+  become: yes
+  become_user: root
+
+  roles:
+    - { role: tomcat }
+
+- hosts: proxy
+  become: yes
+  become_user: root
+
+  roles:
+    - { role: nginx, proxy: '{{ groups["tomcat"] }}' }

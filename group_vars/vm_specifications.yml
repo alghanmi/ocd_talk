@@ -1,0 +1,27 @@
+---
+tomcat_server:
+      name: 'api'
+      keyname: '{{ project_user.ssh_key_name }}'
+      vm_image: base-centos-7
+      vm_flavor: v1-standard-2
+      net_name: app_net
+      metadata_group: tomcat
+      inventory: 2
+
+proxy_server:
+      name: 'proxy'
+      keyname: '{{ project_user.ssh_key_name }}'
+      vm_image: base-centos-7
+      vm_flavor: v1-standard-2
+      net_name: app_net
+      metadata_group: proxy
+      inventory: 1
+
+db_server:
+      name: 'db'
+      keyname: '{{ project_user.ssh_key_name }}'
+      vm_image: base-centos-7
+      vm_flavor: v1-standard-2
+      net_name: app_net
+      metadata_group: db
+      inventory: 1

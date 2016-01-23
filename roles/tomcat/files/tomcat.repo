@@ -1,0 +1,7 @@
+[tomcat]
+enabled=1
+failovermethod=priority
+name=Tomcat
+baseurl=http://mirror.example.com/tomcat
+gpgcheck=0
+priority=1

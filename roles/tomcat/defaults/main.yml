@@ -1,0 +1,5 @@
+---
+tomcat_user: tomcat
+tomcat_group: tomcat
+catalina_home: /opt/tomcat8
+java_home: /usr/lib/jvm/jre

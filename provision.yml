@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+
+  pre_tasks:
+    - include_vars: '{{ item }}'
+      with_items:
+        - group_vars/project.yml
+        - group_vars/vm_specifications.yml
+
+  roles:
+    - { role: provision_vm, cloud: '{{ cloud_project.cloud_name }}', spec: '{{ tomcat_server }}' }
+    - { role: provision_vm, cloud: '{{ cloud_project.cloud_name }}', spec: '{{ proxy_server }}' }
+    - { role: provision_vm, cloud: '{{ cloud_project.cloud_name }}', spec: '{{ db_server }}' }

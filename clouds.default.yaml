@@ -1,0 +1,16 @@
+# You can put the clouds.yml file in:
+#  - Current directory
+#  - ~/.config/openstack/clouds.yaml
+#  - /etc/openstack/clouds.yaml
+#  - /etc/ansible/openstack.yml
+clouds:
+  matrix:
+    private: true
+    region_name: rgn
+    auth:
+      auth_url: https://keystone.example.com/v3
+      username: agent_smith
+      password: iHateOracles
+      project_name: scale14x
+      project_domain_name: conference-demo
+      user_domain_name: conference-demo

@@ -1,0 +1,23 @@
+---
+- name: calculate number of needed VMs
+  include_vars: inventory.yml
+
+- debug: msg='provisioning {{ spec.name }}'
+
+- name: provision a vm
+  os_server:
+    cloud: '{{ cloud }}'
+    #state: present
+    name: '{{ spec.name }}'
+    image: '{{ spec.vm_image }}'
+    key_name: '{{ spec.keyname }}'
+    flavor: '{{ spec.vm_flavor }}'
+    auto_floating_ip: false
+    nics:
+      - net-name: '{{ spec.net_name }}'
+    meta:
+      group: '{{ spec.metadata_group }}'
+    security_groups: default
+    wait: yes
+  with_sequence: start=0 end='{{ vm_provision|int|abs * 2 - 1 }}' stride=2
+  when: vm_provision|int > 0
